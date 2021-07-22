@@ -10,7 +10,8 @@ class App extends Component {
     super();
     this.state = {
       pokemons : [],
-      searchvalue : ''
+      searchvalue : '',
+      typevalue : ''
     }
   }
 
@@ -30,20 +31,45 @@ class App extends Component {
     ))
   }
 
-  handleChange(e){
+  handleChange = e =>{
     this.setState({
       searchvalue : e.target.value
     })
   }
 
+  handleTypeChange = e =>{
+    console.log(e.target.value)
+    this.setState({
+      typevalue : e.target.value
+    })
+  }
+
+  cancelSearch(){
+    console.log("done")
+    this.setState({
+      searchvalue : '',
+      typevalue : ''
+    })
+  }
+
+
+
   render(){
-    const {pokemons} = this.state
+    const {pokemons , typevalue , searchvalue} = this.state
     const filteredPoke = pokemons.filter((poke) => poke.name.toLowerCase().includes(this.state.searchvalue.toLowerCase()))
-    const sortedPoke = filteredPoke.sort((a , b) => a.id - b.id)
+    const filteredTypePoke = filteredPoke.filter((poke) => 
+      this.state.typevalue !== '' ? poke.types[0].type.name === this.state.typevalue : filteredPoke
+    )
+    const sortedPoke = filteredTypePoke.sort((a , b) => a.id - b.id)
     return (
       <div className="App">
         <h1>Pokédex</h1>
-        <SearchBox handleChange={e => this.handleChange(e)} />
+        <SearchBox
+          searchvalue = {searchvalue}
+          typevalue={typevalue}
+          handleChange={e => this.handleChange(e)} 
+          handleTypeChange={e => this.handleTypeChange(e)} 
+          cancelSearch={() => this.cancelSearch()} />
         <CardList pokemons={sortedPoke} />
       </div>
     );
