@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       pokemons : [],
       searchvalue : '',
-      typevalue : ''
+      typevalue : 'Search By Type'
     }
   }
 
@@ -48,7 +48,7 @@ class App extends Component {
     console.log("done")
     this.setState({
       searchvalue : '',
-      typevalue : ''
+      typevalue : 'Search By Type'
     })
   }
 
@@ -58,7 +58,7 @@ class App extends Component {
     const {pokemons , typevalue , searchvalue} = this.state
     const filteredPoke = pokemons.filter((poke) => poke.name.toLowerCase().includes(this.state.searchvalue.toLowerCase()))
     const filteredTypePoke = filteredPoke.filter((poke) => 
-      this.state.typevalue !== '' ? poke.types[0].type.name === this.state.typevalue : filteredPoke
+      this.state.typevalue !== 'Search By Type' ? poke.types[0].type.name === this.state.typevalue : filteredPoke
     )
     const sortedPoke = filteredTypePoke.sort((a , b) => a.id - b.id)
     return (

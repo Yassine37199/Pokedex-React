@@ -12,7 +12,7 @@ const SearchBox = ({handleChange , handleTypeChange , cancelSearch , searchvalue
     
     return (
     <div className="search-group">
-        <TextField id="outlined-basic" label="Search Pokémon" value={searchvalue} variant="outlined" onChange={handleChange} />
+        <TextField id="outlined-basic" label="Search By Name" value={searchvalue} variant="outlined" onChange={handleChange} />
 
         <Select
           labelId="demo-simple-select-label"
@@ -22,9 +22,6 @@ const SearchBox = ({handleChange , handleTypeChange , cancelSearch , searchvalue
           onChange={handleTypeChange}
           value={typevalue}
         >
-        <MenuItem value="" disabled>
-            Placeholder
-          </MenuItem>
           {
               Object.keys(Types).map((type) => (
                   <MenuItem key={type} value={type}>{type}</MenuItem>
